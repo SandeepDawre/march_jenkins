@@ -28,6 +28,7 @@ pipeline {
          stage('Example') {
             steps {
                 echo "Hello I am from ${params.F_NAME02} ${params.L_NAME02}"
+                echo "Hello my hostname is ${env.HOSTNAME}"
                 //echo "Hello ${params.PERSON}"
                 //echo "Biography: ${params.BIOGRAPHY}"
                 //echo "Toggle: ${params.TOGGLE}"
