@@ -1,22 +1,21 @@
 pipeline {
-  agent any
-  stages {
-    stage ("Prompt for input") {
-      steps {
-        script {
-          env.USERNAME = input message: 'Please enter the username',
-                             parameters: [string(defaultValue: '',
-                                          description: '',
-                                          name: 'Username')]
-                                          
-          env.PASSWORD = input message: 'Please enter the password',
-                             parameters: [password(defaultValue: '',
-                                          description: '',
-                                          name: 'Password')]
+    agent any
+    stages {
+        stage('Hello') {
+            steps{
+                script{
+                  output= multiply()
+                  echo "The multiplication result is ${output}"
+            }
+            }
         }
-        echo "Username: ${env.USERNAME}"
-        echo "Password: ${env.PASSWORD}"
-      }
     }
-  }
 }
+
+def multiply()
+    {
+       def a=2
+       def b=3
+       def result=a*b
+       return result
+    }
