@@ -1,30 +1,22 @@
 pipeline {
-    agent any
-    environment {
-        F_NAME = 'TEST'
-        L_NAME = 'USER'
-     } 
-    parameters {
-        string(name: 'F_NAME02', defaultValue: 'HELLO', description: 'What is Your F Name .. ?')
-        string(name: 'L_NAME02', defaultValue: 'MOTO', description: 'What is Your L NAME .. ?')
-    }
-    stages {
-        stage('Stage 01') { 
-            when {
-                branch 'main'
-            }            
-            steps {
-              echo "Hello I am from ${env.F_NAME} ${env.L_NAME}"
-            }
+  agent any
+  stages {
+    stage ("Prompt for input") {
+      steps {
+        script {
+          env.USERNAME = input message: 'Please enter the username',
+                             parameters: [string(defaultValue: '',
+                                          description: '',
+                                          name: 'Username')]
+                                          
+          env.PASSWORD = input message: 'Please enter the password',
+                             parameters: [password(defaultValue: '',
+                                          description: '',
+                                          name: 'Password')]
         }
-         stage('Stage 02') {
-            when {
-                branch 'master'
-            }
-            steps {
-                echo "Hello I am from ${params.F_NAME02} ${params.L_NAME02}"
-
-            }
-        }
+        echo "Username: ${env.USERNAME}"
+        echo "Password: ${env.PASSWORD}"
+      }
     }
+  }
 }
